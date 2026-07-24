@@ -432,9 +432,6 @@ body.lang-en .brand-wordmark{
   width: 62px;
   height: 62px;
   object-fit: contain;
-
-  /* convert black → #08211a */
-  filter: brightness(0) saturate(100%) invert(10%) sepia(30%) saturate(600%) hue-rotate(120deg);
 }
 .cat-card .cat-icon-wrap::before{
   content:"";
