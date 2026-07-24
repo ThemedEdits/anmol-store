@@ -32,12 +32,12 @@
         <a class="nav-link" href="shop.html?cat=tasbeeh" data-en="Tasbeeh" data-ur="تسبیح">Tasbeeh</a>
         <a class="nav-link" href="shop.html?cat=attar" data-en="Attar" data-ur="عطر">Attar</a>
         <a class="nav-link" href="shop.html?cat=honey" data-en="Pure Honey" data-ur="خالص شہد">Pure Honey</a>
-         <a class="nav-link" href="index.html#contact-footer" data-en="Contact" data-ur="رابطہ">Contact</a>
-      <div class="lang-switch lang-switch-mobile" aria-label="Language switch">
-        <button data-lang="en">EN</button>
-        <button data-lang="ur">اردو</button>
-      </div>
-    </nav>
+        <a class="nav-link" href="index.html#contact-footer" data-en="Contact" data-ur="رابطہ">Contact</a>
+        <div class="lang-switch lang-switch-mobile" aria-label="Language switch">
+          <button data-lang="en">EN</button>
+          <button data-lang="ur">اردو</button>
+        </div>
+      </nav>
 
       <div class="header-actions">
         <div class="lang-switch" aria-label="Language switch">
@@ -120,7 +120,7 @@
   </section>
 
   <!-- ============================ FEATURED PRODUCTS ============================ -->
-  <section class="section-alt" id="featured">
+  <section class="carousel-section" id="featured">
     <div class="container">
       <div class="section-head center reveal">
         <span class="eyebrow" data-en="Most Loved" data-ur="سب سے پسندیدہ">Most Loved</span>
@@ -128,7 +128,79 @@
         <p data-en="The pieces our customers reorder again and again."
           data-ur="وہ مصنوعات جو ہمارے گاہک بار بار خریدتے ہیں۔">The pieces our customers reorder again and again.</p>
       </div>
-      <div class="product-grid" id="featuredGrid"></div>
+      <div class="carousel-wrap" id="carouselBestsellers">
+        <div class="carousel-fade fade-left"></div>
+        <div class="carousel-fade fade-right"></div>
+        <button class="carousel-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg></button>
+        <button class="carousel-arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg></button>
+        <div class="carousel-track-viewport">
+          <div class="carousel-track "></div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:44px;">
+        <a href="shop.html" class="btn btn-dark" data-en="View Full Shop" data-ur="مکمل دکان دیکھیں">View Full Shop</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="carousel-section section-alt" id="newArrivals">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-en="Just In" data-ur="نئی آمد">Just In</span>
+        <h2 data-en="Newly Arrived" data-ur="نئی آمد شدہ اشیاء">Newly Arrived</h2>
+        <p data-en="Fresh additions to the Anmol collection." data-ur="انمول کے مجموعے میں تازہ اضافہ۔">Fresh additions
+          to the Anmol collection.</p>
+      </div>
+      <div class="carousel-wrap" id="carouselNewArrivals">
+        <div class="carousel-fade fade-left"></div>
+        <div class="carousel-fade fade-right"></div>
+        <button class="carousel-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg></button>
+        <button class="carousel-arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg></button>
+        <div class="carousel-track-viewport">
+          <div class="carousel-track"></div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:44px;">
+        <a href="shop.html" class="btn btn-dark" data-en="View Full Shop" data-ur="مکمل دکان دیکھیں">View Full Shop</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="carousel-section" id="budgetPicks">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-en="Great Value" data-ur="بہترین قیمت">Great Value</span>
+        <h2 data-en="Budget-Friendly Picks" data-ur="کم قیمت میں بہترین انتخاب">Budget-Friendly Picks</h2>
+        <p data-en="Quality essentials that are easy on the pocket." data-ur="معیاری اشیاء، جیب پر ہلکی۔">Quality
+          essentials that are easy on the pocket.</p>
+      </div>
+      <div class="carousel-wrap" id="carouselBudget">
+        <div class="carousel-fade fade-left"></div>
+        <div class="carousel-fade fade-right"></div>
+        <button class="carousel-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg></button>
+        <button class="carousel-arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg></button>
+        <div class="carousel-track-viewport">
+          <div class="carousel-track"></div>
+        </div>
+      </div>
       <div style="text-align:center; margin-top:44px;">
         <a href="shop.html" class="btn btn-dark" data-en="View Full Shop" data-ur="مکمل دکان دیکھیں">View Full Shop</a>
       </div>
@@ -136,7 +208,7 @@
   </section>
 
   <!-- ============================ ABOUT ============================ -->
-  <section id="about">
+  <!-- <section id="about">
     <div class="container about-grid">
       <div class="about-media reveal">
         <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
@@ -164,7 +236,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- ============================ TESTIMONIALS ============================ -->
   <section class="section-alt" id="testimonials">
@@ -320,6 +392,7 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/home.js"></script>
+  <script src="assets/js/carousel.js"></script>
 </body>
 
 </html>

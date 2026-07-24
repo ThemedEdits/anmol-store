@@ -86,7 +86,9 @@ function renderFeaturedProducts(){
 
 document.addEventListener("DOMContentLoaded", () => {
   renderCategoryGrid();
-  renderFeaturedProducts();
+  initCarousel("carouselBestsellers", getProductsById(CAROUSEL_SELECTIONS.carouselBestsellers));
+initCarousel("carouselNewArrivals", getProductsById(CAROUSEL_SELECTIONS.carouselNewArrivals));
+initCarousel("carouselBudget", getProductsById(CAROUSEL_SELECTIONS.carouselBudget));
 });
 document.addEventListener("languagechange", () => {
   renderCategoryGrid();

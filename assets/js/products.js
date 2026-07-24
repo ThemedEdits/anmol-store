@@ -1,14 +1,14 @@
 const CATEGORIES = [
-  { id: "caps",        en: "Caps & Topi",       ur: "ٹوپیاں",              icon: "cap" },
-  { id: "mats",        en: "Prayer Mats",       ur: "جائے نماز",            icon: "mat" },
-  { id: "rumaal",      en: "Rumaal",            ur: "رومال",               icon: "rumaal" },
-  { id: "attar",       en: "Attar & Perfume",   ur: "عطر",                 icon: "attar" },
-  { id: "quran",       en: "Quran Pak",         ur: "قرآن پاک",            icon: "quran" },
-  { id: "books",       en: "Islamic Books",     ur: "اسلامی کتابیں",       icon: "quran" },
-  { id: "hijama",      en: "Hijama Products",   ur: "حجامہ کا سامان",      icon: "star" },
-  { id: "honey",       en: "Pure Honey",        ur: "خالص شہد",            icon: "honey" },
-  { id: "ghee",        en: "Desi Ghee",         ur: "دیسی گھی",            icon: "honey" },
-  { id: "stationery",  en: "Stationery",        ur: "اسٹیشنری",            icon: "star" }
+  { id: "caps", en: "Caps & Topi", ur: "ٹوپیاں", icon: "cap" },
+  { id: "mats", en: "Prayer Mats", ur: "جائے نماز", icon: "mat" },
+  { id: "rumaal", en: "Rumaal", ur: "رومال", icon: "rumaal" },
+  { id: "attar", en: "Attar & Perfume", ur: "عطر", icon: "attar" },
+  { id: "quran", en: "Quran Pak", ur: "قرآن پاک", icon: "quran" },
+  { id: "books", en: "Islamic Books", ur: "اسلامی کتابیں", icon: "quran" },
+  { id: "hijama", en: "Hijama Products", ur: "حجامہ کا سامان", icon: "star" },
+  { id: "honey", en: "Pure Honey", ur: "خالص شہد", icon: "honey" },
+  { id: "ghee", en: "Desi Ghee", ur: "دیسی گھی", icon: "honey" },
+  { id: "stationery", en: "Stationery", ur: "اسٹیشنری", icon: "star" }
 ];
 
 const PRODUCTS = [
@@ -18,7 +18,7 @@ const PRODUCTS = [
     desc_en: "Breathable hand-crochet cotton cap for daily salah.",
     desc_ur: "روزانہ نماز کے لیے ہاتھ سے بنی سوتی کروشیہ ٹوپی۔",
     price: 550, badge: "bestseller", unit: "piece",
-    image: "assets/images/caps001.jpeg"  
+    image: "assets/images/caps001.jpeg"
   },
   {
     id: "cap-002", category: "caps",
@@ -148,14 +148,7 @@ const PRODUCTS = [
     image: "assets/images/honey002.jpg"
   },
 
-  {
-    id: "ghee-001", category: "ghee",
-    name_en: "Pure Desi Cow Ghee - 1kg", name_ur: "خالص دیسی گائے کا گھی - 1 کلو",
-    desc_en: "Traditionally prepared cow ghee, rich aroma, no additives.",
-    desc_ur: "روایتی طریقے سے تیار گائے کا گھی، بھرپور خوشبو، بغیر ملاوٹ۔",
-    price: 3200, badge: "bestseller", unit: "1kg",
-    image: "assets/images/desi-ghee001.webp"
-  },
+
   {
     id: "ghee-002", category: "ghee",
     name_en: "Pure Desi Buffalo Ghee - 1kg", name_ur: "خالص دیسی بھینس کا گھی - 1 کلو",
@@ -182,3 +175,20 @@ const PRODUCTS = [
     image: "assets/images/stationery002.jpeg"
   }
 ];
+
+/* =========================================================================
+   MANUAL CAROUSEL SELECTIONS
+   Control exactly which products show in each homepage carousel, and order,
+   by listing their ids here.
+   ========================================================================= */
+const CAROUSEL_SELECTIONS = {
+  carouselBestsellers: ["cap-001", "mat-001", "rum-002", "att-001", "qur-001", "hij-001", "hon-001"],
+  carouselNewArrivals: ["mat-002", "book-002", "sta-001"],
+  carouselBudget: ["rum-001", "sta-001", "sta-002", "hij-002", "book-002"]
+};
+
+function getProductsById(ids) {
+  return ids
+    .map(id => PRODUCTS.find(p => p.id === id))
+    .filter(Boolean); // silently skip typos/missing ids instead of crashing
+}
