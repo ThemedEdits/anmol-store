@@ -484,7 +484,7 @@ body.lang-en .brand-wordmark{
 
 .carousel-card.is-side{
   filter:blur(4px);
-  opacity:.55;
+  opacity:.75;
   transform:scale(.82);
   pointer-events:none;
   z-index:1;
