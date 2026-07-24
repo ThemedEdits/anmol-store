@@ -371,7 +371,12 @@ body.lang-en .brand-wordmark{
 }
 .hero-overlay{
   position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(8,33,26,.6) 0%, rgba(8,33,26,.78) 100%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(8,33,26,0.4) 0%,   /* light center */
+    rgba(8,33,26,0.8) 60%,
+    rgba(8,33,26) 100%  /* dark edges */
+  );
 }
 .hero-content{
   position:relative; z-index:1;
@@ -422,6 +427,14 @@ body.lang-en .brand-wordmark{
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
   z-index:0;
+}
+.cat-icon-wrap img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+
+  /* convert black → #08211a */
+  filter: brightness(0) saturate(100%) invert(10%) sepia(30%) saturate(600%) hue-rotate(120deg);
 }
 .cat-card .cat-icon-wrap::before{
   content:"";
@@ -1022,21 +1035,16 @@ body.lang-ur .sort-select{
    CONTACT PAGE
    ========================================================================= */
 
+.contact-bg-wrap {
+  position: relative;
+  background: url("/assets/images/contact-bg.svg") no-repeat center/cover;
+}
+
 .contact-hero{
   padding: calc(var(--header-h) + 64px) 0 40px;
   text-align:center;
-  background:linear-gradient(180deg, var(--ivory-200), var(--ivory-100));
 }
-.contact-hero-icon{
-  width:52px; height:52px;
-  margin:0 auto 20px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:50%;
-  background:var(--white);
-  box-shadow:var(--shadow-soft);
-  color:var(--green-800);
-}
-.contact-hero-icon svg{ width:24px; height:24px; }
+
 .contact-hero h1{
   font-family:var(--font-display);
   font-size:clamp(2rem, 4vw, 2.9rem);
@@ -1050,7 +1058,7 @@ body.lang-ur .sort-select{
 
 .contact-cards-section{
   padding:0 0 80px;
-  background:var(--ivory-100);
+  background:transparent;
 }
 .contact-cards-grid{
   display:grid;

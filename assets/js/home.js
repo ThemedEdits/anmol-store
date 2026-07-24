@@ -3,24 +3,26 @@
    Category showcase + featured product carousGrid, rendered from products.js
    ========================================================================= */
 
-function productCountInCategory(catId){
+function productCountInCategory(catId) {
   return PRODUCTS.filter(p => p.category === catId).length;
 }
 
-function renderCategoryGrid(){
+function renderCategoryGrid() {
   const grid = document.getElementById("categoryGrid");
-  if(!grid) return;
+  if (!grid) return;
   const lang = getLang();
   grid.innerHTML = CATEGORIES.map(cat => `
     <a class="cat-card" href="shop.html?cat=${cat.id}">
-      <div class="cat-icon-wrap">${icon(cat.icon)}</div>
+      <div class="cat-icon-wrap">
+  <img src="/assets/images/cat-icon-${cat.iconIndex}.svg" alt="${cat.en}">
+</div>
       <h4 data-en="${cat.en}" data-ur="${cat.ur}">${lang === "ur" ? cat.ur : cat.en}</h4>
       <div class="cat-count">${productCountInCategory(cat.id)} <span data-en="items" data-ur="اشیاء">${lang === "ur" ? "اشیاء" : "items"}</span></div>
     </a>
   `).join("");
 }
 
-function productCardHTML(p){
+function productCardHTML(p) {
   const lang = getLang();
   const cat = CATEGORIES.find(c => c.id === p.category);
   const badgeMap = {
@@ -57,7 +59,7 @@ function productCardHTML(p){
     </div>`;
 }
 
-function skeletonCardHTML(){
+function skeletonCardHTML() {
   return `
     <div class="product-card skeleton">
       <div class="product-media shimmer"></div>
@@ -73,9 +75,9 @@ function skeletonCardHTML(){
     </div>`;
 }
 
-function renderFeaturedProducts(){
+function renderFeaturedProducts() {
   const grid = document.getElementById("featuredGrid");
-  if(!grid) return;
+  if (!grid) return;
   const featured = PRODUCTS.filter(p => p.badge === "bestseller").slice(0, 8);
 
   grid.innerHTML = Array(featured.length || 8).fill(0).map(skeletonCardHTML).join("");
@@ -87,13 +89,13 @@ function renderFeaturedProducts(){
 document.addEventListener("DOMContentLoaded", () => {
   renderCategoryGrid();
   initCarousel("carouselBestsellers", getProductsById(CAROUSEL_SELECTIONS.carouselBestsellers));
-initCarousel("carouselNewArrivals", getProductsById(CAROUSEL_SELECTIONS.carouselNewArrivals));
-initCarousel("carouselBudget", getProductsById(CAROUSEL_SELECTIONS.carouselBudget));
+  initCarousel("carouselNewArrivals", getProductsById(CAROUSEL_SELECTIONS.carouselNewArrivals));
+  initCarousel("carouselBudget", getProductsById(CAROUSEL_SELECTIONS.carouselBudget));
 });
 document.addEventListener("languagechange", () => {
   renderCategoryGrid();
   const grid = document.getElementById("featuredGrid");
-  if(grid && !grid.querySelector(".skeleton")){
+  if (grid && !grid.querySelector(".skeleton")) {
     const featured = PRODUCTS.filter(p => p.badge === "bestseller").slice(0, 8);
     grid.innerHTML = featured.map(productCardHTML).join("");
   }

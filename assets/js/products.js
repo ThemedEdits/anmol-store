@@ -1,14 +1,15 @@
 const CATEGORIES = [
-  { id: "caps", en: "Caps & Topi", ur: "ٹوپیاں", icon: "cap" },
-  { id: "mats", en: "Prayer Mats", ur: "جائے نماز", icon: "mat" },
-  { id: "rumaal", en: "Rumaal", ur: "رومال", icon: "rumaal" },
-  { id: "attar", en: "Attar & Perfume", ur: "عطر", icon: "attar" },
-  { id: "quran", en: "Quran Pak", ur: "قرآن پاک", icon: "quran" },
-  { id: "books", en: "Islamic Books", ur: "اسلامی کتابیں", icon: "quran" },
-  { id: "hijama", en: "Hijama Products", ur: "حجامہ کا سامان", icon: "star" },
-  { id: "honey", en: "Pure Honey", ur: "خالص شہد", icon: "honey" },
-  { id: "ghee", en: "Desi Ghee", ur: "دیسی گھی", icon: "honey" },
-  { id: "stationery", en: "Stationery", ur: "اسٹیشنری", icon: "star" }
+  { id: "caps", en: "Caps & Topi", ur: "ٹوپیاں", iconIndex: 10, icon: "cap" },
+  { id: "mats", en: "Prayer Mats", ur: "جائے نماز",iconIndex: 9, icon: "mat" },
+  { id: "rumaal", en: "Rumaal", ur: "رومال",iconIndex: 11, icon: "rumaal" },
+  { id: "attar", en: "Attar & Perfume", ur: "عطر",iconIndex: 8, icon: "attar" },
+  { id: "quran", en: "Quran Pak", ur: "قرآن پاک",iconIndex: 7, icon: "quran" },
+  { id: "books", en: "Islamic Books", ur: "اسلامی کتابیں",iconIndex: 6, icon: "quran" },
+  { id: "hijama", en: "Hijama Products", ur: "حجامہ کا سامان",iconIndex: 5, icon: "star" },
+  { id: "honey", en: "Pure Honey", ur: "خالص شہد",iconIndex: 4, icon: "honey" },
+  { id: "ghee", en: "Desi Ghee", ur: "دیسی گھی",iconIndex: 3, icon: "honey" },
+  { id: "tas", en: "Tasbeeh", ur: "تسبیح",iconIndex: 2, icon: "tasbeeh" },
+  { id: "stationery", en: "Stationery", ur: "اسٹیشنری",iconIndex: 1, icon: "star" }
 ];
 
 const PRODUCTS = [
@@ -28,6 +29,56 @@ const PRODUCTS = [
     price: 1400, badge: "premium", unit: "piece",
     image: "assets/images/caps002.jpeg"
   },
+
+  {
+    id: "tas-001",
+    category: "tas",
+    name_en: "Premium Tasbeeh",
+    name_ur: "پریمیم تسبیح",
+    desc_en: "Elegant tasbeeh made with high-quality beads, perfect for daily zikr and gifting.",
+    desc_ur: "اعلیٰ معیار کے دانوں سے بنی خوبصورت تسبیح، روزانہ ذکر اور تحفے کے لیے بہترین۔",
+    price: 600,
+    badge: "premium",
+    unit: "piece",
+    image: "assets/images/tasbeeh001.jpeg"
+  },
+
+  {
+  id: "tas-002",
+  category: "tas",
+  name_en: "Crystal Tasbeeh",
+  name_ur: "کرسٹل تسبیح",
+  desc_en: "Beautiful crystal bead tasbeeh with a glossy finish, ideal for daily recitation.",
+  desc_ur: "خوبصورت چمکدار کرسٹل دانوں والی تسبیح، روزانہ تلاوت کے لیے بہترین۔",
+  price: 750,
+  badge: "premium",
+  unit: "piece",
+  image: "assets/images/tasbeeh002.jpeg"
+},
+{
+  id: "tas-003",
+  category: "tas",
+  name_en: "Wooden Tasbeeh",
+  name_ur: "لکڑی کی تسبیح",
+  desc_en: "Classic wooden tasbeeh with smooth natural beads for a comfortable grip.",
+  desc_ur: "ہموار قدرتی لکڑی کے دانوں والی کلاسک تسبیح، آرام دہ استعمال کے لیے۔",
+  price: 450,
+  badge: "standard",
+  unit: "piece",
+  image: "assets/images/tasbeeh003.jpeg"
+},
+{
+  id: "tas-004",
+  category: "tas",
+  name_en: "Acrylic Tasbeeh",
+  name_ur: "ایکریلک تسبیح",
+  desc_en: "Lightweight acrylic tasbeeh with vibrant colors, perfect for everyday use.",
+  desc_ur: "ہلکے وزن اور خوبصورت رنگوں والی ایکریلک تسبیح، روزمرہ استعمال کے لیے بہترین۔",
+  price: 550,
+  badge: "new",
+  unit: "piece",
+  image: "assets/images/tasbeeh004.jpeg"
+},
 
   {
     id: "mat-001", category: "mats",
