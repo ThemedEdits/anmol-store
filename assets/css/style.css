@@ -740,7 +740,7 @@ body.lang-ur .sort-select{
   transition:border-color .25s ease, box-shadow .25s ease;
 }
 .field input:focus, .field textarea:focus, .field select:focus{
-  border-color:var(--gold-500); box-shadow:0 0 0 3px rgba(184,145,47,.18); outline:none;
+  border-color:var(--gold-500); outline:none;
 }
 .field .error-msg{ font-size:.75rem; color:var(--maroon-700); min-height:1em; }
 .field.has-error input, .field.has-error textarea{ border-color:var(--maroon-700); }
@@ -783,7 +783,7 @@ body.lang-ur .sort-select{
 @media (max-width: 1080px){
   .cat-grid{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
-  .shop-layout, .checkout-layout{ grid-template-columns:1fr; }
+  .shop-layout, .checkout-layout{ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
   .filter-panel{ position:static; }
 }
 
