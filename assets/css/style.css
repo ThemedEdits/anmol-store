@@ -1186,13 +1186,6 @@ body.lang-ur .sort-select{
   .contact-cards-grid{
     grid-template-columns:1fr;
   }
-  .contact-card{
-    border-right:none !important;
-    border-left:none !important;
-    border-bottom:1px solid var(--sage-200);
-  }
-  .contact-cards-grid .contact-card:last-child{ border-bottom:none; }
-}
 
 @media (max-width: 560px){
   .contact-hero{ padding:calc(var(--header-h) + 40px) 0 32px; }
