@@ -1185,7 +1185,7 @@ body.lang-ur .sort-select{
 @media (max-width: 900px){
   .contact-cards-grid{
     grid-template-columns:1fr;
-  }
+  }}
 
 @media (max-width: 560px){
   .contact-hero{ padding:calc(var(--header-h) + 40px) 0 32px; }
