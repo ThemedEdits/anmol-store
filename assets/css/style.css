@@ -818,7 +818,7 @@ body.lang-ur .sort-select{
   .cat-grid{ grid-template-columns:1fr 1fr; }
   .footer-grid{ grid-template-columns:1fr 1fr; gap:30px; }
   .testi-grid{ grid-template-columns:1fr; }
-  .field-row{ grid-template-columns:1fr; }
+  .field-row{ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
   .shop-toolbar{ flex-direction:column; align-items:stretch; }
   .search-box{ max-width:none; }
   .mobile-filter-toggle{ display:inline-flex; order:-1; margin-bottom:4px; }
