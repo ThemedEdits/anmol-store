@@ -559,8 +559,11 @@ body.lang-ur .carousel-arrow.next:hover{ transform:translateY(-50%) scaleX(-1) s
   .carousel-arrow.next{ right:6px; }
   body.lang-ur .carousel-arrow.prev{ right:6px; }
   body.lang-ur .carousel-arrow.next{ left:6px; }
-  .carousel-fade{ width:100px; }
+  .carousel-fade{ width:70px; }
   .carousel-card{ width:min(220px, 72vw); }
+  .carousel-track{
+    gap:6px;
+  }
 }
 
 /* =========================================================================
