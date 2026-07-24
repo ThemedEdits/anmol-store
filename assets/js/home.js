@@ -29,11 +29,16 @@ function productCardHTML(p){
     premium: { en: "Premium", ur: "پریمیم" }
   };
   const badge = p.badge && badgeMap[p.badge] ? `<span class="product-badge badge-${p.badge}">${lang === "ur" ? badgeMap[p.badge].ur : badgeMap[p.badge].en}</span>` : "";
+  const mediaContent = p.image && !p.image.startsWith("REPLACE_WITH")
+    ? `<img src="${p.image}" alt="${lang === "ur" ? p.name_ur : p.name_en}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+       <div class="media-fallback" style="display:none;">${icon(cat.icon)}</div>`
+    : `<div class="media-fallback">${icon(cat.icon)}</div>`;
+
   return `
     <div class="product-card">
       <div class="product-media">
         ${badge}
-        ${icon(cat.icon)}
+        ${mediaContent}
         <div class="quick-add">
           <button type="button" class="btn btn-dark btn-sm btn-block" onclick="addToCart('${p.id}')">
             <span data-en="Add to Cart" data-ur="ٹوکری میں شامل کریں">${lang === "ur" ? "ٹوکری میں شامل کریں" : "Add to Cart"}</span>

@@ -41,6 +41,9 @@ function renderCheckoutSummary(){
       const priceEl = el.querySelector(".js-line-price");
       const newPrice = formatPKR(l.lineTotal);
       if(priceEl && priceEl.textContent !== newPrice) priceEl.textContent = newPrice;
+      const nameEl = el.querySelector(".info h5");
+      const newName = lang === "ur" ? l.product.name_ur : l.product.name_en;
+      if(nameEl && nameEl.textContent !== newName) nameEl.textContent = newName;
     } else {
       el = document.createElement("div");
       el.className = "cart-line js-enter";

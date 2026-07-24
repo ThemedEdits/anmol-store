@@ -441,7 +441,7 @@ body.lang-en .brand-wordmark{
 /* =========================================================================
    PRODUCT CARDS + GRID
    ========================================================================= */
-.product-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:26px; }
+.product-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:26px; }
 
 .product-card{
   position:relative;
@@ -454,6 +454,7 @@ body.lang-en .brand-wordmark{
 }
 .product-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); }
 
+/* REPLACE with */
 .product-media{
   position:relative;
   aspect-ratio:1/1;
@@ -461,8 +462,15 @@ body.lang-en .brand-wordmark{
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
 }
+.product-media img{
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s var(--ease);
+}
+.product-card:hover .product-media img{ transform:scale(1.06); }
+.product-media .media-fallback{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
 .product-media svg{ width:52%; height:52%; color:var(--green-800); transition:transform .5s var(--ease); }
 .product-card:hover .product-media svg{ transform:scale(1.08) rotate(-2deg); }
+
 .product-badge{
   position:absolute; top:12px; left:12px; z-index:2;
   font-size:.68rem; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
@@ -482,7 +490,7 @@ body.lang-ur .product-badge{ left:auto; right:12px; }
 
 .product-body{ padding:18px 18px 20px; display:flex; flex-direction:column; flex:1; gap:8px; }
 .product-cat-tag{ font-size:.72rem; color:var(--gold-500); font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-.product-title{ font-family:var(--font-display); font-size:1.05rem; color:var(--green-950); line-height:1.3; min-height:2.6em; }
+.product-title{ font-family:var(--font-body); font-size:1.05rem; color:var(--green-950); line-height:1.3; min-height:2.6em; }
 .product-desc{ font-size:.85rem; color:var(--ink-500); flex:1; }
 .product-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
 .price{ font-weight:700; color:var(--green-950); font-size:1.05rem; }
@@ -604,7 +612,9 @@ body.lang-ur .cart-drawer.open{ transform:translateX(0); }
 
 .cart-line{ display:flex; gap:14px; align-items:center; animation:lineIn .35s var(--ease); }
 @keyframes lineIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
-.cart-line .thumb{ width:64px; height:64px; border-radius:10px; background:linear-gradient(150deg, var(--ivory-200), var(--sage-200)); display:flex; align-items:center; justify-content:center; flex:none; }
+.cart-line .thumb{ width:64px; height:64px; border-radius:10px; background:linear-gradient(150deg, var(--ivory-200), var(--sage-200)); display:flex; align-items:center; justify-content:center; flex:none; overflow:hidden; }
+.cart-line .thumb img{ width:100%; height:100%; object-fit:cover; }
+.cart-line .thumb .thumb-fallback{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
 .cart-line .thumb svg{ width:30px; height:30px; color:var(--green-800); }
 .cart-line .info{ flex:1; min-width:0; }
 .cart-line .info h5{ font-size:.88rem; margin:0 0 4px; font-family:var(--font-body); font-weight:600; color:var(--ink-900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -655,8 +665,11 @@ body.lang-ur .cart-line .info h5{ font-family:var(--font-urdu); font-weight:400;
   background:linear-gradient(150deg, var(--ivory-200), var(--sage-200));
   border:2px solid var(--white);
   display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
   margin-inline-end:-14px;
 }
+.mini-cart-thumbs .mini-thumb img{ width:100%; height:100%; object-fit:cover; }
+.mini-cart-thumbs .mini-thumb-fallback{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
 .mini-cart-thumbs .mini-thumb svg{ width:18px; height:18px; color:var(--green-800); }
 .mini-cart-thumbs .mini-thumb:last-child{ margin-inline-end:0; }
 .mini-cart-label{ font-weight:400; font-size:.92rem; color:var(--ink-900); flex:1; text-align:center; }

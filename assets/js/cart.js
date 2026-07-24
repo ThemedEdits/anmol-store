@@ -87,9 +87,20 @@ function bumpBadge() {
 }
 
 /* ---------- Drawer ---------- */
-function cartLineHTML(l, lang) {
+function cartLineThumbHTML(l){
+  const catIcon = icon(CATEGORIES.find(c=>c.id===l.product.category)?.icon || "star");
+  if(l.product.image){
+    return `<div class="thumb">
+      <img src="${l.product.image}" alt="" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="thumb-fallback" style="display:none;">${catIcon}</div>
+    </div>`;
+  }
+  return `<div class="thumb">${catIcon}</div>`;
+}
+
+function cartLineHTML(l, lang){
   return `
-    <div class="thumb">${icon(CATEGORIES.find(c => c.id === l.product.category)?.icon || "star")}</div>
+    ${cartLineThumbHTML(l)}
     <div class="info">
       <h5>${lang === "ur" ? l.product.name_ur : l.product.name_en}</h5>
       <div class="unit-price">${formatPKR(l.product.price)} × <span class="js-qty-text">${l.qty}</span></div>
@@ -128,13 +139,16 @@ function renderCartDrawer() {
     lines.forEach(l => {
       seen.add(l.id);
       let el = existing.get(l.id);
-      if (el) {
+       if(el){
         // update only the numbers that changed — no re-render, no re-animate
         const qtyEls = el.querySelectorAll(".js-qty, .js-qty-text");
-        qtyEls.forEach(q => { if (q.textContent != l.qty) q.textContent = l.qty; });
+        qtyEls.forEach(q => { if(q.textContent != l.qty) q.textContent = l.qty; });
         const priceEl = el.querySelector(".js-line-price");
         const newPrice = formatPKR(l.lineTotal);
-        if (priceEl && priceEl.textContent !== newPrice) priceEl.textContent = newPrice;
+        if(priceEl && priceEl.textContent !== newPrice) priceEl.textContent = newPrice;
+        const nameEl = el.querySelector(".info h5");
+        const newName = lang === "ur" ? l.product.name_ur : l.product.name_en;
+        if(nameEl && nameEl.textContent !== newName) nameEl.textContent = newName;
       } else {
         el = document.createElement("div");
         el.className = "cart-line";
@@ -185,7 +199,6 @@ function closeCart(){
   if(typeof refreshMiniCartVisibility === "function") refreshMiniCartVisibility();
 }
 
-/* ADD this new function */
 /* REPLACE with */
 function renderMiniCartBar(){
   const bar = document.getElementById("miniCartBar");
@@ -196,9 +209,16 @@ function renderMiniCartBar(){
 
   const thumbsWrap = document.getElementById("miniCartThumbs");
   const recent = lines.slice(-3).reverse();
-  thumbsWrap.innerHTML = recent.map(l => `
-    <div class="mini-thumb">${icon(CATEGORIES.find(c=>c.id===l.product.category)?.icon || "star")}</div>
-  `).join("");
+  thumbsWrap.innerHTML = recent.map(l => {
+    const catIcon = icon(CATEGORIES.find(c=>c.id===l.product.category)?.icon || "star");
+    if(l.product.image){
+      return `<div class="mini-thumb">
+        <img src="${l.product.image}" alt="" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="mini-thumb-fallback" style="display:none;">${catIcon}</div>
+      </div>`;
+    }
+    return `<div class="mini-thumb">${catIcon}</div>`;
+  }).join("");
 
   document.getElementById("miniCartTotal").textContent = formatPKR(cartSubtotal());
   if(typeof refreshMiniCartVisibility === "function") refreshMiniCartVisibility();
@@ -213,4 +233,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-open-cart]").forEach(btn => btn.addEventListener("click", (e) => { e.preventDefault(); openCart(); }));
   document.getElementById("miniCartBar")?.addEventListener("click", openCart);
   if(typeof refreshMiniCartVisibility === "function") refreshMiniCartVisibility();
+});
+
+document.addEventListener("languagechange", () => {
+  renderCartDrawer();
 });
