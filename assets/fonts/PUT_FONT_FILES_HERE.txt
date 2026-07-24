@@ -1,0 +1,17 @@
+Put your Jameel Noori Nastaleeq font files in this folder using EXACTLY these file names
+(only one format is required, but you can include more than one for wider browser support):
+
+  JameelNooriNastaleeq.woff2
+  JameelNooriNastaleeq.ttf
+  JameelNooriNastaleeq.otf
+
+The site already references these file names in assets/css/style.css (the @font-face
+rule at the very top of the file), so once the files are dropped in here with these
+exact names, the Urdu version of the site will automatically use Jameel Noori Nastaleeq.
+
+If you don't add the files, the site will still work perfectly — it will just fall back
+to "Noto Nastaliq Urdu" (loaded from Google Fonts) for the Urdu text instead.
+
+Tip: if your font file is a .ttf, you technically only need to add the .ttf file and can
+delete the .woff2/.otf lines from the @font-face rule in style.css, or simply leave them —
+the browser will skip formats it can't find without any error.

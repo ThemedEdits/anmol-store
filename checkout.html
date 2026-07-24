@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Anmol Islamic General Store</title>
+  <meta name="description"
+    content="Review your cart and place your order — Anmol Islamic General Store sends your order details straight to WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="lang-en">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" data-no-transition>
+        <span class="brand-text">
+          <span class="brand-wordmark">انمول اسلامک جنرل سٹور</span>
+        </span>
+      </a>
+
+      <nav class="main-nav">
+        <a class="nav-link" href="index.html" data-en="Home" data-ur="ہوم">Home</a>
+        <a class="nav-link" href="shop.html" data-en="Shop All" data-ur="سب دیکھیں">Shop All</a>
+        <a class="nav-link active" href="checkout.html" data-en="Checkout" data-ur="چیک آؤٹ">Checkout</a>
+         <a class="nav-link" href="index.html#contact-footer" data-en="Contact" data-ur="رابطہ">Contact</a>
+      <div class="lang-switch lang-switch-mobile" aria-label="Language switch">
+        <button data-lang="en">EN</button>
+        <button data-lang="ur">اردو</button>
+      </div>
+    </nav>
+
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="Language switch">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="ur">اردو</button>
+        </div>
+        <button class="icon-btn" data-open-cart aria-label="Open cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1.4" />
+            <circle cx="19" cy="21" r="1.4" />
+            <path d="M2.5 2.5h3l3 13h11l2.5-9h-15" />
+          </svg>
+          <span class="cart-badge">0</span>
+        </button>
+        <button class="icon-btn nav-toggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="checkout-hero">
+    <div class="container reveal is-visible">
+      <span class="eyebrow" data-en="Almost There" data-ur="بس تھوڑا سا اور">Almost There</span>
+      <h1 data-en="Review &amp; Place Your Order" data-ur="اپنے آرڈر کا جائزہ لیں اور آرڈر دیں">Review &amp; Place Your
+        Order</h1>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="container">
+
+      <div id="checkoutEmptyState" class="checkout-empty-state hidden">
+        <div class="empty-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1.2" />
+            <circle cx="19" cy="21" r="1.2" />
+            <path d="M2.5 2.5h3l3 13h11l2.5-9h-15" />
+          </svg>
+        </div>
+        <h3 data-en="Your Cart is Empty" data-ur="آپ کی ٹوکری خالی ہے">Your Cart is Empty</h3>
+        <p data-en="Looks like you haven't added anything yet. Browse our collection and find something you'll love."
+          data-ur="لگتا ہے آپ نے ابھی تک کچھ شامل نہیں کیا۔ ہمارا مجموعہ دیکھیں اور اپنی پسند کی چیز تلاش کریں۔">Looks
+          like you haven't added anything yet. Browse our collection and find something you'll love.</p>
+        <a href="shop.html" class="btn btn-gold" data-en="Browse the Shop" data-ur="دکان دیکھیں">Browse the Shop</a>
+      </div>
+
+      <div class="checkout-layout" id="checkoutFormSection">
+        <div class="form-card reveal is-visible">
+          <h3 data-en="Delivery Details" data-ur="ترسیل کی تفصیلات">Delivery Details</h3>
+
+          <div id="formErrorsBanner" class="hidden"
+            style="background:#fdecec; border:1px solid #e3a3a3; color:#7a1f1f; padding:12px 16px; border-radius:8px; font-size:.85rem; margin-bottom:18px;"
+            data-en="Please fix the highlighted fields below." data-ur="براہ کرم نیچے نشان زدہ خانوں کو درست کریں۔">
+            Please fix the highlighted fields below.</div>
+
+          <form id="checkoutForm" onsubmit="return false;">
+            <div class="field-row">
+              <div class="field">
+                <label for="custName" data-en="Full Name" data-ur="پورا نام"><span class="req">*</span> Full
+                  Name</label>
+                <input type="text" id="custName" data-en-placeholder="e.g. Muhammad Ahmed"
+                  data-ur-placeholder="مثلاً محمد احمد" placeholder="e.g. Muhammad Ahmed">
+                <div class="error-msg" id="custNameError"></div>
+              </div>
+              <div class="field">
+                <label for="custPhone" data-en="Phone Number" data-ur="فون نمبر"><span class="req">*</span> Phone
+                  Number</label>
+                <input type="tel" id="custPhone" data-en-placeholder="03XX-XXXXXXX" data-ur-placeholder="03XX-XXXXXXX"
+                  placeholder="03XX-XXXXXXX">
+                <div class="error-msg" id="custPhoneError"></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="custAddress" data-en="Delivery Address" data-ur="ترسیل کا پتہ"><span class="req">*</span>
+                Delivery Address</label>
+              <textarea id="custAddress" rows="2" data-en-placeholder="House #, street, area / landmark"
+                data-ur-placeholder="گھر نمبر، گلی، علاقہ / نشانی"
+                placeholder="House #, street, area / landmark"></textarea>
+              <div class="error-msg" id="custAddressError"></div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="custCity" data-en="City" data-ur="شہر"><span class="req">*</span> City</label>
+                <input type="text" id="custCity" data-en-placeholder="e.g. Karachi" data-ur-placeholder="مثلاً کراچی"
+                  placeholder="e.g. Karachi">
+                <div class="error-msg" id="custCityError"></div>
+              </div>
+              <div class="field">
+                <label for="custNotes" data-en="Order Notes (optional)" data-ur="آرڈر کے لیے نوٹس (اختیاری)">Order Notes
+                  (optional)</label>
+                <input type="text" id="custNotes" data-en-placeholder="e.g. preferred delivery time"
+                  data-ur-placeholder="مثلاً ترسیل کا پسندیدہ وقت" placeholder="e.g. preferred delivery time">
+              </div>
+            </div>
+
+            <div class="payment-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 11v5.5M12 7.5v.01" />
+              </svg>
+              <span
+                data-en="Payment is Cash on Delivery. After you tap a button below, WhatsApp will open with your order details already filled in — just hit send to confirm with our team."
+                data-ur="ادائیگی کیش آن ڈلیوری کے ذریعے ہوگی۔ نیچے بٹن دبانے کے بعد واٹس ایپ آپ کے آرڈر کی تفصیلات کے ساتھ کھل جائے گا — بس بھیجیں دبا کر ہماری ٹیم سے تصدیق کریں۔">Payment
+                is Cash on Delivery. After you tap a button below, WhatsApp will open with your order details already
+                filled in — just hit send to confirm with our team.</span>
+            </div>
+
+            <h4 style="font-family:var(--font-body); font-size:.95rem; margin-bottom:10px;" data-en="Send Order To"
+              data-ur="آرڈر بھیجیں">Send Order To</h4>
+            <div class="whatsapp-choice">
+              <div class="wa-option">
+                <div>
+                  <span data-en="Shop Manager 1" data-ur="شاپ منیجر 1">Shop Manager 1</span>
+                  <small class="wa-num">0311-3788002</small>
+                </div>
+                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-number="923113788002">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path
+                      d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.27-.1-.46-.15-.66.15-.2.3-.76.95-.93 1.14-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.7-.7 1.94-1.37.24-.68.24-1.26.17-1.37-.07-.12-.27-.2-.57-.35z" />
+                    <path
+                      d="M12 2a10 10 0 0 0-8.6 15.1L2 22l4.9-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.18-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20z" />
+                  </svg>
+                  <span data-en="Send Order" data-ur="آرڈر بھیجیں">Send Order</span>
+                </button>
+              </div>
+              <div class="wa-option">
+                <div>
+                  <span data-en="Shop Manager 2" data-ur="شاپ منیجر 2">Shop Manager 2</span>
+                  <small class="wa-num">0333-3488764</small>
+                </div>
+                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-number="923333488764">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path
+                      d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.27-.1-.46-.15-.66.15-.2.3-.76.95-.93 1.14-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.7-.7 1.94-1.37.24-.68.24-1.26.17-1.37-.07-.12-.27-.2-.57-.35z" />
+                    <path
+                      d="M12 2a10 10 0 0 0-8.6 15.1L2 22l4.9-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.18-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20z" />
+                  </svg>
+                  <span data-en="Send Order" data-ur="آرڈر بھیجیں">Send Order</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="summary-card reveal is-visible">
+          <h3 data-en="Order Summary" data-ur="آرڈر کا خلاصہ">Order Summary</h3>
+          <div class="summary-items" id="summaryItems"></div>
+          <div class="summary-line">
+            <span data-en="Subtotal" data-ur="ذیلی مجموعہ">Subtotal</span>
+            <span id="sumSubtotal">Rs 0</span>
+          </div>
+          <div class="summary-line">
+            <span data-en="Shipping" data-ur="ترسیل">Shipping</span>
+            <span id="sumShipping">Rs 0</span>
+          </div>
+          <div class="summary-line total">
+            <span data-en="Total" data-ur="کل رقم">Total</span>
+            <span id="sumTotal">Rs 0</span>
+          </div>
+          <p style="font-size:.78rem; color:var(--ink-500); margin-top:14px;"
+            data-en="Free shipping on orders over Rs 3,000. Otherwise a flat Rs 200 delivery charge applies."
+            data-ur="3000 روپے سے زائد آرڈر پر مفت ترسیل۔ ورنہ 200 روپے یکمشت ترسیل چارج لاگو ہوگا۔">Free shipping on
+            orders over Rs 3,000. Otherwise a flat Rs 200 delivery charge applies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <span>&copy; 2026 Anmol Islamic General Store. <span data-en="All rights reserved."
+            data-ur="جملہ حقوق محفوظ ہیں۔">All rights reserved.</span></span>
+        <span>
+          <a href="https://wa.me/923113788002" style="color:var(--gold-300);">0311-3788002</a> ·
+          <a href="https://wa.me/923333488764" style="color:var(--gold-300);">0333-3488764</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head">
+      <h3 data-en="Your Cart" data-ur="آپ کی ٹوکری">Your Cart</h3>
+      <button class="cart-close" id="cartCloseBtn" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="cart-subtotal-row">
+        <span data-en="Subtotal" data-ur="ذیلی مجموعہ">Subtotal</span>
+        <strong id="cartSubtotal">Rs 0</strong>
+      </div>
+      <a href="checkout.html" class="btn btn-gold btn-block" id="cartCheckoutBtn" data-en="Proceed to Checkout"
+        data-ur="چیک آؤٹ کی طرف بڑھیں">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/checkout.js"></script>
+</body>
+
+</html>
