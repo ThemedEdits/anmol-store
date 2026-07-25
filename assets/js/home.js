@@ -42,8 +42,9 @@ function productCardHTML(p) {
         ${badge}
         ${mediaContent}
         <div class="quick-add">
-          <button type="button" class="btn btn-dark btn-sm btn-block" onclick="addToCart('${p.id}')">
-            <span data-en="Add to Cart" data-ur="ٹوکری میں شامل کریں">${lang === "ur" ? "ٹوکری میں شامل کریں" : "Add to Cart"}</span>
+          <button type="button" class="btn btn-dark btn-sm btn-block" onclick="addToCart('${p.id}', 1, this)">
+            <span class="btn-label-default" data-en="Add to Cart" data-ur="ٹوکری میں شامل کریں">${lang === "ur" ? "ٹوکری میں شامل کریں" : "Add to Cart"}</span>
+            <span class="btn-label-added">${icon("check")}<span data-en="Added to Cart" data-ur="شامل ہو گیا">${lang === "ur" ? "شامل ہو گیا" : "Added to Cart"}</span></span>
           </button>
         </div>
       </div>
@@ -53,7 +54,10 @@ function productCardHTML(p) {
         <p class="product-desc">${lang === "ur" ? p.desc_ur : p.desc_en}</p>
         <div class="product-foot">
           <div class="price">${p.oldPrice ? `<span class="old">${formatPKR(p.oldPrice)}</span>` : ""}${formatPKR(p.price)}</div>
-          <button type="button" class="add-btn" aria-label="Add to cart" onclick="addToCart('${p.id}')">${icon("plus")}</button>
+          <button type="button" class="add-btn" aria-label="Add to cart" onclick="addToCart('${p.id}', 1, this)">
+            <span class="icon-plus">${icon("plus")}</span>
+            <span class="icon-check">${icon("check")}</span>
+          </button>
         </div>
       </div>
     </div>`;

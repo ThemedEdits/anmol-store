@@ -5,6 +5,85 @@
 
 const CART_KEY = "anmol_cart_v1";
 
+/* ADD near the top, after CART_KEY */
+function flyToCart(originEl, product){
+  const cartIcon = document.querySelector('[data-open-cart]');
+  if(!originEl || !cartIcon) return;
+
+  const startRect = originEl.getBoundingClientRect();
+  const endRect = cartIcon.getBoundingClientRect();
+
+  const startWidth = startRect.width;
+  const startHeight = startRect.height;
+  const startTop = startRect.top;
+  const startLeft = startRect.left;
+
+  const fly = document.createElement("div");
+  fly.className = "fly-item";
+  fly.style.top = `${startTop}px`;
+  fly.style.left = `${startLeft}px`;
+  fly.style.width = `${startWidth}px`;
+  fly.style.height = `${startHeight}px`;
+  fly.style.borderRadius = "14px";
+  // no transition yet — this first frame must render at full size instantly
+  fly.style.transition = "none";
+
+  const cat = CATEGORIES.find(c => c.id === product.category);
+  fly.innerHTML = product.image
+    ? `<img src="${product.image}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+       <div class="fly-fallback" style="display:none;">${icon(cat.icon)}</div>`
+    : `<div class="fly-fallback">${icon(cat.icon)}</div>`;
+
+  document.body.appendChild(fly);
+  void fly.offsetWidth;
+
+  const endSize = 14;
+  const endTop = endRect.top + endRect.height / 2 - endSize / 2;
+  const endLeft = endRect.left + endRect.width / 2 - endSize / 2;
+  const startCenterX = startLeft + startWidth / 2;
+  const startCenterY = startTop + startHeight / 2;
+
+  // phase 1: lift off at full size, travel most of the way, barely shrinking
+  const midT = 0.55;
+  const midLeft = startLeft + (endLeft - startLeft) * midT;
+  const midTop = startTop + (endTop - startTop) * midT;
+  const midWidth = startWidth * 0.7;
+  const midHeight = startHeight * 0.7;
+
+  requestAnimationFrame(() => {
+    fly.style.transition = "transform .45s cubic-bezier(.3,.05,.3,1), left .45s cubic-bezier(.3,.05,.3,1), top .45s cubic-bezier(.3,.05,.3,1), width .45s cubic-bezier(.3,.05,.3,1), height .45s cubic-bezier(.3,.05,.3,1), border-radius .45s ease";
+    fly.style.left = `${midLeft}px`;
+    fly.style.top = `${midTop}px`;
+    fly.style.width = `${midWidth}px`;
+    fly.style.height = `${midHeight}px`;
+    fly.style.borderRadius = "50%";
+  });
+
+  // phase 2: rapid shrink into the cart icon for the final stretch
+  setTimeout(() => {
+    fly.style.transition = "transform .35s cubic-bezier(.5,0,.75,0), left .35s cubic-bezier(.5,0,.75,0), top .35s cubic-bezier(.5,0,.75,0), width .35s cubic-bezier(.5,0,.75,0), height .35s cubic-bezier(.5,0,.75,0), opacity .35s ease, border-radius .35s ease";
+    fly.style.left = `${endLeft}px`;
+    fly.style.top = `${endTop}px`;
+    fly.style.width = `${endSize}px`;
+    fly.style.height = `${endSize}px`;
+    fly.style.borderRadius = "50%";
+    fly.style.opacity = "0.85";
+  }, 460);
+
+  setTimeout(() => {
+    fly.remove();
+    bumpBadge();
+  }, 830);
+}
+function setButtonAdded(btn, type){
+  if(!btn || btn.classList.contains("is-added")) return;
+  btn.classList.add("is-added");
+  clearTimeout(btn._addedTimer);
+  btn._addedTimer = setTimeout(() => {
+    btn.classList.remove("is-added");
+  }, 1800);
+}
+
 function getCart() {
   try {
     const raw = localStorage.getItem(CART_KEY);
@@ -22,15 +101,29 @@ function findProduct(id) {
   return PRODUCTS.find(p => p.id === id);
 }
 
-function addToCart(id, qty = 1) {
+/* REPLACE with */
+function addToCart(id, qty = 1, sourceEl = null){
   const cart = getCart();
   const line = cart.find(l => l.id === id);
-  if (line) { line.qty += qty; } else { cart.push({ id, qty }); }
+  if(line){ line.qty += qty; } else { cart.push({ id, qty }); }
   saveCart(cart);
   renderCartDrawer();
   const p = findProduct(id);
   const lang = getLang();
-  bumpBadge();
+
+  if(sourceEl){
+    const mediaEl = sourceEl.closest(".product-card")?.querySelector(".product-media") || sourceEl;
+    flyToCart(mediaEl, p);
+
+    if(sourceEl.classList.contains("add-btn")){
+      setButtonAdded(sourceEl, "circle");
+    } else {
+      const quickBtn = sourceEl.closest(".quick-add")?.querySelector(".btn") || sourceEl;
+      setButtonAdded(quickBtn, "pill");
+    }
+  } else {
+    bumpBadge();
+  }
 }
 
 function updateQty(id, delta) {
@@ -182,19 +275,30 @@ function renderCartDrawer() {
 }
 
 /* REPLACE with */
+let cartScrollLockY = 0;
+
 function openCart(){
   document.getElementById("cartOverlay")?.classList.add("open");
   requestAnimationFrame(() => {
     document.getElementById("cartDrawer")?.classList.add("open");
   });
-  document.body.style.overflow = "hidden";
+  cartScrollLockY = window.scrollY;
+  document.body.classList.add("scroll-locked");
+  document.body.style.top = `-${cartScrollLockY}px`;
   miniCartForcedHidden = true;
   if(typeof refreshMiniCartVisibility === "function") refreshMiniCartVisibility();
 }
 function closeCart(){
   document.getElementById("cartOverlay")?.classList.remove("open");
   document.getElementById("cartDrawer")?.classList.remove("open");
-  document.body.style.overflow = "";
+  const y = cartScrollLockY;
+  document.body.classList.remove("scroll-locked");
+  document.body.style.top = "";
+  document.documentElement.style.scrollBehavior = "auto";
+  window.scrollTo(0, y);
+  requestAnimationFrame(() => {
+    document.documentElement.style.scrollBehavior = "";
+  });
   miniCartForcedHidden = false;
   if(typeof refreshMiniCartVisibility === "function") refreshMiniCartVisibility();
 }
