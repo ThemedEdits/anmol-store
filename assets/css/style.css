@@ -415,6 +415,10 @@ body.lang-en .brand-wordmark{
 /* =========================================================================
    CATEGORY ARCH CARDS
    ========================================================================= */
+
+   #categories{
+    background: url(/assets/images/contact-bg.svg) no-repeat center/cover fixed;
+   }
 .cat-grid{
   display:grid; grid-template-columns:repeat(4,1fr); gap:26px;
 }
@@ -440,6 +444,7 @@ body.lang-en .brand-wordmark{
   width: 62px;
   height: 62px;
   object-fit: contain;
+  z-index: 1;
 }
 .cat-card .cat-icon-wrap::before{
   content:"";
