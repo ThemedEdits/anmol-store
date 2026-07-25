@@ -171,17 +171,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* =========================================================================
-   Anmol Islamic General Store — Promo popup scheduler
-   First visit: always show. After that: reappear based on time-on-site
-   (escalating threshold) OR repeat visits within a short window.
+   Anmol Islamic General Store — Promo popup scheduler (FIXED VERSION)
+   - First visit: show once
+   - No popup on refresh / page switch
+   - Reappears after time OR repeat visits
+   - Cooldown added (prevents annoying behavior)
    ========================================================================= */
 
 (function(){
   const STORE_KEY = "anmol_promo_state";
-  const FIRST_THRESHOLD_MS = 7 * 60 * 1000;   // 7 min for the 2nd-ever show
-  const GROWTH_MS = 3 * 60 * 1000;            // +3 min each time after that
+
+  const FIRST_THRESHOLD_MS = 7 * 60 * 1000;   // 7 min
+  const GROWTH_MS = 3 * 60 * 1000;            // +3 min
   const VISIT_WINDOW_MS = 4 * 24 * 60 * 60 * 1000; // 4 days
-  const VISIT_COUNT_TRIGGER = 2;              // show again on 2nd visit within window
+  const VISIT_COUNT_TRIGGER = 2;
+
+  const MIN_GAP_BETWEEN_SHOWS = 30 * 60 * 1000; // ✅ 30 min cooldown
 
   function loadState(){
     try{
@@ -193,7 +198,8 @@ document.addEventListener("DOMContentLoaded", () => {
       shownCount: 0,
       nextThresholdMs: FIRST_THRESHOLD_MS,
       lastVisitAt: null,
-      visitsInWindow: 0
+      visitsInWindow: 0,
+      lastShownAt: null // ✅ NEW
     };
   }
 
@@ -201,11 +207,26 @@ document.addEventListener("DOMContentLoaded", () => {
     try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
   }
 
+  function canShow(state){
+    const now = Date.now();
+    return !state.lastShownAt || (now - state.lastShownAt) > MIN_GAP_BETWEEN_SHOWS;
+  }
+
   function showPromo(){
     const overlay = document.getElementById("promoOverlay");
     if(!overlay) return;
+
+    const state = loadState();
+
+    // 🚫 Prevent showing again on refresh / quick revisit
+    if(!canShow(state)) return;
+
     overlay.classList.add("show");
     document.body.classList.add("scroll-locked");
+
+    // ✅ Save last shown time
+    state.lastShownAt = Date.now();
+    saveState(state);
   }
 
   function closePromo(){
@@ -226,22 +247,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = loadState();
     const now = Date.now();
 
-    // --- Visit-frequency check (repeat visits within the window) ---
+    // --- Visit-frequency check ---
     let visitTriggered = false;
+
     if(state.lastVisitAt && (now - state.lastVisitAt) <= VISIT_WINDOW_MS){
       state.visitsInWindow = (state.visitsInWindow || 0) + 1;
     } else {
-      state.visitsInWindow = 1; // window reset or first time tracking
+      state.visitsInWindow = 1;
     }
+
     if(!state.firstVisitEver && state.visitsInWindow >= VISIT_COUNT_TRIGGER){
       visitTriggered = true;
-      state.visitsInWindow = 0; // reset after triggering
+      state.visitsInWindow = 0;
     }
+
     state.lastVisitAt = now;
 
-    // --- First-ever visit: always show, immediately ---
+    // --- FIRST VISIT ---
     if(state.firstVisitEver){
-      showPromo();
+      if(canShow(state)){
+        showPromo();
+      }
       state.firstVisitEver = false;
       state.shownCount = 1;
       state.nextThresholdMs = FIRST_THRESHOLD_MS;
@@ -249,24 +275,30 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // --- Returning visitor triggered by visit frequency ---
+    // --- RETURN VISIT TRIGGER ---
     if(visitTriggered){
-      showPromo();
-      state.shownCount += 1;
-      state.nextThresholdMs += GROWTH_MS;
+      if(canShow(state)){
+        showPromo();
+        state.shownCount += 1;
+        state.nextThresholdMs += GROWTH_MS;
+      }
       saveState(state);
       return;
     }
 
     saveState(state);
 
-    // --- Time-on-site escalating timer ---
+    // --- TIME-ON-SITE TIMER ---
     const timerId = setTimeout(() => {
-      showPromo();
       const s = loadState();
-      s.shownCount = (s.shownCount || 0) + 1;
-      s.nextThresholdMs = (s.nextThresholdMs || FIRST_THRESHOLD_MS) + GROWTH_MS;
-      saveState(s);
+
+      if(canShow(s)){
+        showPromo();
+        s.shownCount = (s.shownCount || 0) + 1;
+        s.nextThresholdMs = (s.nextThresholdMs || FIRST_THRESHOLD_MS) + GROWTH_MS;
+        saveState(s);
+      }
+
     }, state.nextThresholdMs || FIRST_THRESHOLD_MS);
 
     window.addEventListener("beforeunload", () => clearTimeout(timerId));
