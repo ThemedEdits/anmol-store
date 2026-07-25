@@ -171,22 +171,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* =========================================================================
-   Anmol Islamic General Store — Promo popup scheduler (FIXED VERSION)
+   Anmol Islamic General Store — FINAL FIXED POPUP SYSTEM
    - First visit: show once
-   - No popup on refresh / page switch
-   - Reappears after time OR repeat visits
-   - Cooldown added (prevents annoying behavior)
+   - No popup on refresh/page switch (same session)
+   - Uses sessionStorage + localStorage
+   - Smart cooldown + timers
    ========================================================================= */
 
 (function(){
   const STORE_KEY = "anmol_promo_state";
+  const SESSION_KEY = "anmol_promo_session_seen"; // ✅ NEW
 
-  const FIRST_THRESHOLD_MS = 7 * 60 * 1000;   // 7 min
-  const GROWTH_MS = 3 * 60 * 1000;            // +3 min
-  const VISIT_WINDOW_MS = 4 * 24 * 60 * 60 * 1000; // 4 days
+  const FIRST_THRESHOLD_MS = 7 * 60 * 1000;
+  const GROWTH_MS = 3 * 60 * 1000;
+  const VISIT_WINDOW_MS = 4 * 24 * 60 * 60 * 1000;
   const VISIT_COUNT_TRIGGER = 2;
 
-  const MIN_GAP_BETWEEN_SHOWS = 30 * 60 * 1000; // ✅ 30 min cooldown
+  const MIN_GAP_BETWEEN_SHOWS = 30 * 60 * 1000; // 30 min
 
   function loadState(){
     try{
@@ -199,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       nextThresholdMs: FIRST_THRESHOLD_MS,
       lastVisitAt: null,
       visitsInWindow: 0,
-      lastShownAt: null // ✅ NEW
+      lastShownAt: null
     };
   }
 
@@ -209,7 +210,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function canShow(state){
     const now = Date.now();
-    return !state.lastShownAt || (now - state.lastShownAt) > MIN_GAP_BETWEEN_SHOWS;
+
+    // ❌ Prevent in same session (refresh/page switch)
+    if(sessionStorage.getItem(SESSION_KEY)) return false;
+
+    // ❌ Prevent too frequent showing
+    if(state.lastShownAt && (now - state.lastShownAt) < MIN_GAP_BETWEEN_SHOWS){
+      return false;
+    }
+
+    return true;
+  }
+
+  function markShown(){
+    const state = loadState();
+
+    state.lastShownAt = Date.now();
+    sessionStorage.setItem(SESSION_KEY, "true"); // ✅ lock for session
+
+    saveState(state);
   }
 
   function showPromo(){
@@ -217,16 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if(!overlay) return;
 
     const state = loadState();
-
-    // 🚫 Prevent showing again on refresh / quick revisit
     if(!canShow(state)) return;
 
     overlay.classList.add("show");
     document.body.classList.add("scroll-locked");
 
-    // ✅ Save last shown time
-    state.lastShownAt = Date.now();
-    saveState(state);
+    markShown();
   }
 
   function closePromo(){
@@ -247,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = loadState();
     const now = Date.now();
 
-    // --- Visit-frequency check ---
+    // --- VISIT TRACKING ---
     let visitTriggered = false;
 
     if(state.lastVisitAt && (now - state.lastVisitAt) <= VISIT_WINDOW_MS){
@@ -275,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // --- RETURN VISIT TRIGGER ---
+    // --- RETURN VISIT ---
     if(visitTriggered){
       if(canShow(state)){
         showPromo();
@@ -288,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     saveState(state);
 
-    // --- TIME-ON-SITE TIMER ---
+    // --- TIMER ---
     const timerId = setTimeout(() => {
       const s = loadState();
 
